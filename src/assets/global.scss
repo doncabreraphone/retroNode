@@ -1,0 +1,54 @@
+body {
+    user-select: none;
+    height: 100vh;
+    background: #eee;
+    overflow-x: hidden;
+}
+
+label {
+    cursor: pointer;
+}
+
+#writeBoard {
+    z-index: 1000;
+    padding: .7em;
+    max-width: 65% !important;
+    transition: all .2s ease;
+
+    &:hover {
+        background-color: #fff;
+    }
+
+    .inline {
+        margin-top: .8em;
+    }
+}
+
+.scenario::before {
+    position: absolute;
+    content: "";
+    background: none;
+    width: 100%;
+    height: 110%;
+    padding: 5em;
+    z-index: -1;
+    left: 0;
+    pointer-events: none;
+}
+
+.eye {
+    overflow: hidden;
+    transition: height 0.3s ease;
+  }
+  
+  .collapsed {
+    height: 0; 
+  }
+
+  .drawing-cursor {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' height='16' width='16'><circle cx='8' cy='8' r='6' fill='none' stroke='blue' stroke-width='2'/></svg>") 8 8, auto;
+  }
+  
+  .erasing-cursor {
+    cursor: cell;
+  }
