@@ -54,6 +54,8 @@ As of publication, the Zoom is a bit wonky, since I am having troubles calculati
 - **Scene Configuration**: Utilize the detailed customization options for each node to tailor the narrative experience, incorporating specific imagery, narrative paths, and visibility settings.
 - **Leverage the Control Panel**: Access quick operations for adding scenarios, managing application state, and transitioning between development modes.
 - **Export and Implement**: Export scenario data and corresponding code snippets for seamless integration with the game logic.
+- **Zoom**: Shift + mousewheel to zoom in and out (WIP)
+- **Eraser/Drawing**: Ctrl+Z to erase and draw on the canvas
 
 ## Contribution and Development
 
