@@ -1,6 +1,6 @@
 # RetroNode
 
-RetroNode is a Vue.js-based component that makes it easy to design rpg text/graphic adventures through a visual scripting interface. It aims to streamline the game design process, allowing developers and storytellers to construct intricate narrative paths with ease. Each node within RetroNode symbolizes a distinct room or scene, equipped with drag-and-drop capabilities for intuitive spatial arrangement and granular scene configuration.
+RetroNode is a Vue.js-based tool that makes it easy to design rpg text/graphic adventures through a visual scripting interface. It aims to streamline the game design process, allowing developers and storytellers to construct intricate narrative paths with ease. Each node within RetroNode symbolizes a distinct room or scene, equipped with drag-and-drop capabilities for intuitive spatial arrangement and granular scene configuration.
 
 ## Features
 
@@ -10,14 +10,25 @@ RetroNode is a Vue.js-based component that makes it easy to design rpg text/grap
 - **Control Panel for Quick Access**: Features a floating control panel with buttons for adding scenarios, exporting data, toggling drawing mode, and managing application state.
 - **Export Functionality**: Enables exporting scenario data and generated code snippets for easy integration into game logic.
 
+## Dependencies
+
+RetroNode leverages the power of Vue.js for its core functionality, enriched with the following key libraries:
+
+- **Vue.js** (`vue`): A progressive JavaScript framework for building user interfaces.
+- **Fabric.js** (`fabric`): A powerful library for HTML5 canvas manipulation, enabling interactive drawing and object management.
+- **Vuedraggable** (`vuedraggable`): A Vue component that allows drag-and-drop functionality, integral for the user interface of RetroNode.
+
+Additionally, **core-js** is used to ensure that the application runs smoothly across all modern browsers by providing necessary polyfills.
+
+
 ## Getting Started
 
-To integrate RetroNode into your project, follow these steps:
+1. **Prerequisites**:
+   - Ensure you have [Node.js](https://nodejs.org/) installed.
+   - RetroNode is built for Vue.js projects. If you haven't already set up a Vue.js environment, you can do so by following the [official Vue.js guide](https://vuejs.org/v2/guide/installation.html).
 
-### Installation
-
-1. **Prerequisites**: Ensure Vue.js environment setup is complete.
 2. **Clone the Repository**:
+   Clone RetroNode into your project directory.
    ```sh
    git clone https://github.com/your-username/RetroNode.git
    ```

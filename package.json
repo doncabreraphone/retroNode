@@ -1,7 +1,9 @@
 {
-  "name": "narrative-tool",
+  "name": "retronode",
   "version": "0.1.0",
-  "private": true,
+  "description": "A Vue.js-based component for creating and managing interactive text adventures within a visual scripting tool. It facilitates the seamless design and organization of narrative structures and game rooms/scenes through a user-friendly drag-and-drop interface.",
+  "main": "main.js", 
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
