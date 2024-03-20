@@ -5,8 +5,8 @@
  -->
 
 
+<!-- Vue component template for scenario display and interaction -->
 <template>
-  <!-- Vue component template for scenario display and interaction -->
   <div
     ref="scenario"
     :id="`${localScenario.id}`"
@@ -15,7 +15,7 @@
       top: position.top + 'px',
       left: position.left + 'px',
       boxShadow: dragging ? '0 4px 8px rgba(0, 0, 0, 0.2)' : '0 3px 1px #ccc',
-      transform: dragging ? 'translateY(-10px)' : '',
+      transform: dragging ? `translateY(-10px) scale(${zoomLevel})` : `scale(${zoomLevel})`,
       borderColor: dragging ? '#4ADE80' : '#eee',
       borderWidth: '2px',
       borderStyle: 'solid',
@@ -23,8 +23,8 @@
     }"
     @mouseover="handleMouseOver"
     @mouseout="handleMouseOut"
+    @zoom-change="handleZoomChange"
   >
-  <!-- Scenario title -->
     <h1
       class="text-xl float-left font-mono font-semibold w-4/6"
       @mousedown="dragStart"
@@ -383,7 +383,7 @@
 <script>
 export default {
   name: "ScenarioComponent",
-  props: ["scenario", "scenarios"],
+  props: ["scenario", "scenarios","zoomLevel"],
   data() {
     let initialScenario = JSON.parse(JSON.stringify(this.scenario));
     if (!initialScenario.npc) {
@@ -427,18 +427,27 @@ export default {
     };
   },
 
+  watch: {
+    zoomLevel(newZoomLevel) {
+      console.log(`Zoom level changed to: ${newZoomLevel}`);
+      // React to the zoom level change here, e.g., adjust UI elements
+      this.adjustToZoomLevel(newZoomLevel);
+    },
+  },
+
   mounted() {
     document.addEventListener("mousemove", this.drag);
     document.addEventListener("mouseup", this.dragEnd);
     this.updatePositionFromCSS();
-  },
-  beforeUnmount() {
+},
+beforeUnmount() {
     // Updated from beforeDestroy to beforeUnmount for Vue 3
     document.removeEventListener("mousemove", this.drag);
     document.removeEventListener("mouseup", this.dragEnd);
   },
 
   computed: {
+
     filteredScenarios() {
       return this.scenarios.filter((s) => s.id !== this.scenario.id);
     },
@@ -456,6 +465,27 @@ export default {
     },
   },
   methods: {
+
+    adjustToZoomLevel(newzoomLevel) {
+    // console.log('Received zoom level:', newzoomLevel);
+
+
+    const scenarioElement = this.$refs.scenario;
+    this.$nextTick(() => {
+        if (scenarioElement) {
+            const scale = `scale(${newzoomLevel})`;
+            const offsetX = 0;
+            const offsetY = 0;
+            const translate = `translate(${offsetX}px, ${offsetY}px)`;
+
+            scenarioElement.style.transform = `${scale} ${translate}`;
+            scenarioElement.style.transformOrigin = '0% 0%'; // Top-left of the element itself
+            scenarioElement.style.transition = 'transform 0.3s ease';
+        }
+    });
+},
+
+
     handleMouseOver() {
       this.$refs.scenario.style.zIndex = "10";
     },
@@ -660,6 +690,8 @@ export default {
 
       return positions;
     },
+
+   
 
     selectCardinalPoint(direction, targetScenarioName) {
       console.log(this.localScenario);

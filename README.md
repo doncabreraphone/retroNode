@@ -20,6 +20,13 @@ RetroNode leverages the power of Vue.js for its core functionality, enriched wit
 
 Additionally, **core-js** is used to ensure that the application runs smoothly across all modern browsers by providing necessary polyfills.
 
+## Using Tailwind CSS
+
+RetroNode utilizes Tailwind CSS for styling. For convenience and ease of use during development, RetroNode includes Tailwind CSS via CDN. This setup is sufficient for development and prototyping purposes. However, if you plan to use RetroNode in a production environment, or if you need to customize Tailwind's configuration, you may consider installing Tailwind CSS in your project.
+
+## To-do
+
+As of publication, the Zoom is a bit wonky, since I am having troubles calculating the vanishing point. It is a work in progress.   
 
 ## Getting Started
 
@@ -30,7 +37,7 @@ Additionally, **core-js** is used to ensure that the application runs smoothly a
 2. **Clone the Repository**:
    Clone RetroNode into your project directory.
    ```sh
-   git clone https://github.com/your-username/RetroNode.git
+   git clone https://github.com/doncabreraphone/retroNode.git
    ```
 3. **Install Dependencies**:
    ```sh

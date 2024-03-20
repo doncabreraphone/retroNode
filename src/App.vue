@@ -15,10 +15,14 @@
 -->
 
 <template>
+
+    
   <div id="app flex justify-center">
     <canvas id="scenarioCanvas"></canvas>
     <div class="max-w-full h-screen p-4">
       <div id="writeBoard" class="fixed mb-5 w-2/3 pr-3 z-10">
+        <button @click="setZoomLevel(1.1)" class="btn z-10 border-gray-400 rounded bg-gray-400">Zoom In</button>
+<button @click="setZoomLevel(0.8)">Zoom Out</button>
         <button
           @click="addScenario"
           class="bg-white border px-4 leading-relaxed border-gray-400 text-gray-500 rounded p-2 transition duration-200 hover:translate-y-[-2px] hover:shadow-lg hover:text-black hover:bg-gray-100"
@@ -136,11 +140,13 @@
         :key="scenario.id"
         :scenario="scenario"
         :scenarios="scenarios"
+        :zoom-level="currentZoomLevel"
         @deleteScenario="deleteScenario"
         @editScenario="editScenario"
         @update-position="handleUpdatePosition"
         @updateCanvasDimensions="updateCanvasDimensions"
         @imageSelected="handleImageSelected"
+        
       ></ScenarioComponent>
     </div>
   </div>
@@ -188,6 +194,7 @@ export default {
       showScenarioMessage: false,
       showSwitchCaseMessage: false,
       scenarioPositions: {},
+      currentZoomLevel: 1,
     };
   },
 
@@ -350,8 +357,11 @@ export default {
       var canvasEl = document.getElementById("scenarioCanvas");
 
       // Set canvas size to match the viewport
-      canvasEl.width = window.innerWidth;
-      canvasEl.height = "4000";
+      canvasEl.width = window.innerWidth * 0.7;
+      canvasEl.height = window.innerHeight;
+
+      this.canvasWidth = canvasEl.width; // Store width as a property
+      this.canvasHeight = canvasEl.height; // Store height as a property
 
       this.canvas = new fabric.Canvas("scenarioCanvas", {
         width: canvasEl.width,
@@ -370,7 +380,66 @@ export default {
       this.canvas.wrapperEl.style.left = "0";
       this.canvas.wrapperEl.style.zIndex = "";
       // Optionally, add other event listeners or functions here
+
+          // Set the initial zoom level
+          this.currentZoomLevel = 1; // Start with a 1:1 scale
+
+        // Add wheel event listener to handle zoom
+        this.canvas.wrapperEl.addEventListener('wheel', (event) => {
+
+            console.log("Wheel event detected"); // Check if the event is fired
+            console.log("Shift key state:", event.shiftKey); 
+
+            // Check if the Shift key is pressed
+            if (!event.shiftKey) {
+                return; // Do nothing if Shift isn't held down
+            }
+            console.log("wheel working");
+            // Prevent the default scroll behavior
+            event.preventDefault();
+            
+            // Determine the direction of the wheel movement (zoom in or out)
+            const delta = event.deltaY;
+            let newZoomLevel = this.currentZoomLevel + (delta > 0 ? -0.1 : 0.1);
+            
+            // Cap the zoom level between 0.5 and 1.5
+            if(newZoomLevel < 0.75) {
+                newZoomLevel = 0.75;
+                console.log('Reached minimum zoom level');
+            } else if(newZoomLevel > 1) {
+                newZoomLevel = 1;
+                console.log('Reached maximum zoom level');
+            }
+            
+            // Only apply the zoom if it's within the allowed range
+            if(newZoomLevel !== this.currentZoomLevel) {
+                this.setZoomLevel(newZoomLevel);
+                this.currentZoomLevel = newZoomLevel;
+            }
+            
+        }, { passive: false });
+
     },
+    setZoomLevel(zoomLevel) {
+  // Set the zoom level
+  this.canvas.setZoom(zoomLevel);
+
+  // Calculate the canvas width and height at the current zoom level
+  const zoomedWidth = this.canvas.getWidth() * zoomLevel;
+  const zoomedHeight = this.canvas.getHeight() * zoomLevel;
+
+  // Calculate the offset to center the content
+  const xOffset = (this.canvas.getWidth() - zoomedWidth) / 2;
+  const yOffset = (this.canvas.getHeight() - zoomedHeight) / 2;
+
+  // Update the canvas viewport transformation to apply the offset
+  this.canvas.viewportTransform[4] = xOffset; // X offset
+  this.canvas.viewportTransform[5] = yOffset; // Y offset
+
+  // Request a re-render of the canvas
+  this.canvas.requestRenderAll();
+},
+
 
     toggleDrawingMode() {
       const drawing = document.getElementById("drawing");
@@ -605,4 +674,7 @@ export default {
     },
   },
 };
+
+
+
 </script>
