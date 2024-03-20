@@ -385,8 +385,8 @@ export default {
         // Add wheel event listener to handle zoom
         this.canvas.wrapperEl.addEventListener('wheel', (event) => {
 
-            console.log("Wheel event detected"); // Check if the event is fired
-            console.log("Shift key state:", event.shiftKey); 
+            // console.log("Wheel event detected"); // Check if the event is fired
+            // console.log("Shift key state:", event.shiftKey); 
 
             // Check if the Shift key is pressed
             if (!event.shiftKey) {
@@ -403,10 +403,10 @@ export default {
             // Cap the zoom level between 0.5 and 1.5
             if(newZoomLevel < 0.75) {
                 newZoomLevel = 0.75;
-                console.log('Reached minimum zoom level');
+                // console.log('Reached minimum zoom level');
             } else if(newZoomLevel > 1) {
                 newZoomLevel = 1;
-                console.log('Reached maximum zoom level');
+                // console.log('Reached maximum zoom level');
             }
             
             // Only apply the zoom if it's within the allowed range

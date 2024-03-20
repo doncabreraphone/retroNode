@@ -466,24 +466,35 @@ beforeUnmount() {
   },
   methods: {
 
-    adjustToZoomLevel(newzoomLevel) {
-    // console.log('Received zoom level:', newzoomLevel);
 
-
-    const scenarioElement = this.$refs.scenario;
+adjustToZoomLevel(newZoomLevel) {
     this.$nextTick(() => {
+        const scenarioElement = this.$refs.scenario;
         if (scenarioElement) {
-            const scale = `scale(${newzoomLevel})`;
-            const offsetX = 0;
-            const offsetY = 0;
-            const translate = `translate(${offsetX}px, ${offsetY}px)`;
+            // Calculate the element's current position relative to the viewport
+            const rect = scenarioElement.getBoundingClientRect();
+            const currentLeft = rect.left;
+            const currentTop = rect.top;
 
-            scenarioElement.style.transform = `${scale} ${translate}`;
-            scenarioElement.style.transformOrigin = '0% 0%'; // Top-left of the element itself
+            // Calculate the translation needed to simulate a viewport top-left transform origin
+            const translateX = -currentLeft * (newZoomLevel - 1);
+            const translateY = -currentTop * (newZoomLevel - 1);
+
+            // Apply the scale and translation transformations
+            scenarioElement.style.transform = `translate( scale(${newZoomLevel})`;
+
+            console.log(`translate(${translateX}px, ${translateY}px) scale(${newZoomLevel})`);
+
+            // Ensure transformations are smooth
             scenarioElement.style.transition = 'transform 0.3s ease';
         }
     });
-},
+},  
+
+
+
+
+
 
 
     handleMouseOver() {
