@@ -21,9 +21,7 @@
     <canvas id="scenarioCanvas"></canvas>
     <div class="max-w-full h-screen p-4">
       <div id="writeBoard" class="fixed mb-5 w-2/3 pr-3 z-10">
-        <button @click="setZoomLevel(1.1)" class="btn z-10 border-gray-400 rounded bg-gray-400">Zoom In</button>
-<button @click="setZoomLevel(0.8)">Zoom Out</button>
-        <button
+       <button
           @click="addScenario"
           class="bg-white border px-4 leading-relaxed border-gray-400 text-gray-500 rounded p-2 transition duration-200 hover:translate-y-[-2px] hover:shadow-lg hover:text-black hover:bg-gray-100"
         >
