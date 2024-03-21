@@ -61,17 +61,18 @@ As of publication, the Zoom is a bit wonky, since I am having troubles calculati
 - **Zoom**: Shift + mousewheel to zoom in and out (WIP)
 - **Eraser/Drawing**: Ctrl+Z to erase and draw on the canvas
 
-## Contribution and Development
+# Get Involved with retroNode
 
-Contributions to retroNode are highly encouraged. If you have suggestions for improvement or have identified bugs, please feel free to submit an issue or a pull request. Let's collaborate to enhance retroNode's capabilities for the game development community.
+Got ideas or spotted bugs in retroNode? Awesome! It really needs your input! And, I'd love your help making retroNode even better too. Feel free to open up an issue or shoot over a pull request. Let's make this tool rock for all of us in game dev.
 
-## Licensing
+## License Stuff
 
-retroNode is made available under the MIT License, permitting widespread use and modification. For full license details, refer to the LICENSE file.
+retroNode is rocking the MIT License. That means you're pretty much free to do whatever with it—use it, tweak it, build on it. Just check out the LICENSE file for the legal speak.
 
-## Acknowledgements
+## Big Thanks
 
-Special thanks to the open-source community and all contributors who have played a role in the development and refinement of retroNode, making it a valuable tool for narrative-driven game development.
+Shoutout to everyone in the open-source gang and all you cool folks who've contributed to retroNode with your input (Mari, Roy, Fede, Josu, and everyone else). Your feedback have been massive in shaping this tool what it is and I hope you stick around for what's next.
+
 
 
 
