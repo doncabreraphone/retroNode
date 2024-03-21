@@ -1,6 +1,6 @@
 # retroNode
 
-retroNode is a Vue.js-based tool that makes it easy to design rpg text/graphic adventures through a visual scripting interface. It aims to streamline the game design process, allowing developers and storytellers to construct intricate narrative paths with ease. Each node within retroNode symbolizes a distinct room or scene, equipped with drag-and-drop capabilities for intuitive spatial arrangement and granular scene configuration.
+retroNode is a tool built with Vue.js designed to simplify the creation of RPG text and graphic adventures. It features a visual scripting interface, making it straightforward for developers and storytellers to craft complex narrative paths. In retroNode, each node represents a unique room or scene. The platform offers drag-and-drop functionality for easy organization and detailed customization of scenes, enabling users to focus on creativity without getting bogged down in technical details.
 
 
 https://github.com/doncabreraphone/retroNode/assets/45015326/ad6dcfb1-eae7-47a4-bf70-019129e8e1d9
