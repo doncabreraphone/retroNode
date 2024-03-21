@@ -1,6 +1,6 @@
-# RetroNode
+# retroNode
 
-RetroNode is a Vue.js-based tool that makes it easy to design rpg text/graphic adventures through a visual scripting interface. It aims to streamline the game design process, allowing developers and storytellers to construct intricate narrative paths with ease. Each node within RetroNode symbolizes a distinct room or scene, equipped with drag-and-drop capabilities for intuitive spatial arrangement and granular scene configuration.
+retroNode is a Vue.js-based tool that makes it easy to design rpg text/graphic adventures through a visual scripting interface. It aims to streamline the game design process, allowing developers and storytellers to construct intricate narrative paths with ease. Each node within retroNode symbolizes a distinct room or scene, equipped with drag-and-drop capabilities for intuitive spatial arrangement and granular scene configuration.
 
 ## Features
 
@@ -12,17 +12,17 @@ RetroNode is a Vue.js-based tool that makes it easy to design rpg text/graphic a
 
 ## Dependencies
 
-RetroNode leverages the power of Vue.js for its core functionality, enriched with the following key libraries:
+retroNode leverages the power of Vue.js for its core functionality, enriched with the following key libraries:
 
 - **Vue.js** (`vue`): A progressive JavaScript framework for building user interfaces.
 - **Fabric.js** (`fabric`): A powerful library for HTML5 canvas manipulation, enabling interactive drawing and object management.
-- **Vuedraggable** (`vuedraggable`): A Vue component that allows drag-and-drop functionality, integral for the user interface of RetroNode.
+- **Vuedraggable** (`vuedraggable`): A Vue component that allows drag-and-drop functionality, integral for the user interface of retroNode.
 
 Additionally, **core-js** is used to ensure that the application runs smoothly across all modern browsers by providing necessary polyfills.
 
 ## Using Tailwind CSS
 
-RetroNode utilizes Tailwind CSS for styling. For convenience and ease of use during development, RetroNode includes Tailwind CSS via CDN. This setup is sufficient for development and prototyping purposes. However, if you plan to use RetroNode in a production environment, or if you need to customize Tailwind's configuration, you may consider installing Tailwind CSS in your project.
+retroNode utilizes Tailwind CSS for styling. For convenience and ease of use during development, retroNode includes Tailwind CSS via CDN. This setup is sufficient for development and prototyping purposes. However, if you plan to use retroNode in a production environment, or if you need to customize Tailwind's configuration, you may consider installing Tailwind CSS in your project.
 
 ## To-do
 
@@ -32,10 +32,10 @@ As of publication, the Zoom is a bit wonky, since I am having troubles calculati
 
 1. **Prerequisites**:
    - Ensure you have [Node.js](https://nodejs.org/) installed.
-   - RetroNode is built for Vue.js projects. If you haven't already set up a Vue.js environment, you can do so by following the [official Vue.js guide](https://vuejs.org/v2/guide/installation.html).
+   - retroNode is built for Vue.js projects. If you haven't already set up a Vue.js environment, you can do so by following the [official Vue.js guide](https://vuejs.org/v2/guide/installation.html).
 
 2. **Clone the Repository**:
-   Clone RetroNode into your project directory.
+   Clone retroNode into your project directory.
    ```sh
    git clone https://github.com/doncabreraphone/retroNode.git
    ```
@@ -59,15 +59,15 @@ As of publication, the Zoom is a bit wonky, since I am having troubles calculati
 
 ## Contribution and Development
 
-Contributions to RetroNode are highly encouraged. If you have suggestions for improvement or have identified bugs, please feel free to submit an issue or a pull request. Let's collaborate to enhance RetroNode's capabilities for the game development community.
+Contributions to retroNode are highly encouraged. If you have suggestions for improvement or have identified bugs, please feel free to submit an issue or a pull request. Let's collaborate to enhance retroNode's capabilities for the game development community.
 
 ## Licensing
 
-RetroNode is made available under the MIT License, permitting widespread use and modification. For full license details, refer to the LICENSE file.
+retroNode is made available under the MIT License, permitting widespread use and modification. For full license details, refer to the LICENSE file.
 
 ## Acknowledgements
 
-Special thanks to the open-source community and all contributors who have played a role in the development and refinement of RetroNode, making it a valuable tool for narrative-driven game development.
+Special thanks to the open-source community and all contributors who have played a role in the development and refinement of retroNode, making it a valuable tool for narrative-driven game development.
 
 
 

@@ -23,6 +23,13 @@ label {
 #writeBoard .inline {
   margin-top: 0.8em;
 }
+#writeBoard #logo {
+  visibility: hidden;
+  transition: all 0.1s ease;
+}
+#writeBoard:hover #logo {
+  visibility: visible;
+}
 
 .scenario::before {
   position: absolute;
@@ -42,7 +49,7 @@ label {
 }
 
 .collapsed {
-  height: 0; /* Adjust this value to control the collapsed height, if needed */
+  height: 0;
 }
 
 .drawing-cursor {

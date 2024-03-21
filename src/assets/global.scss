@@ -22,6 +22,15 @@ label {
     .inline {
         margin-top: .8em;
     }
+
+    #logo {
+        visibility: hidden;
+        transition: all .1s ease;
+    }
+
+    &:hover #logo {
+        visibility: visible;
+    }
 }
 
 .scenario::before {

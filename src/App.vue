@@ -15,13 +15,11 @@
 -->
 
 <template>
-
-    
   <div id="app flex justify-center">
     <canvas id="scenarioCanvas"></canvas>
     <div class="max-w-full h-screen p-4">
       <div id="writeBoard" class="fixed mb-5 w-2/3 pr-3 z-10">
-       <button
+        <button
           @click="addScenario"
           class="bg-white border px-4 leading-relaxed border-gray-400 text-gray-500 rounded p-2 transition duration-200 hover:translate-y-[-2px] hover:shadow-lg hover:text-black hover:bg-gray-100"
         >
@@ -33,6 +31,24 @@
         >
           Export Scenarios
         </button>
+
+        <div
+          id="console"
+          class="inline ml-5 text-white bg-lime-500 p-1 px-3 rounded hidden"
+        >
+          Message...
+        </div>
+        
+        <div
+            id="logo"
+            class="text-gray-500 text-xl font-['Open_Sans'] absolute top-[4px] left-[25%]  font-bold inline ml-60"
+        >
+        <a href="https://github.com/doncabreraphone/retroNode">retroNode
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-diagram-2-fill absolute top-[-5px] left-[-35px]" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H11a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 5 7h2.5V6A1.5 1.5 0 0 1 6 4.5zm-3 8A1.5 1.5 0 0 1 4.5 10h1A1.5 1.5 0 0 1 7 11.5v1A1.5 1.5 0 0 1 5.5 14h-1A1.5 1.5 0 0 1 3 12.5zm6 0a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1A1.5 1.5 0 0 1 9 12.5z"/>
+        </svg>
+        </a>
+        </div>
 
         <div
           id="drawing"
@@ -103,7 +119,7 @@
 
       <div
         id="exported"
-        class="w-1/3 fixed py-3 px-6 right-0 top-0 h-screen overflow-auto z-10 bg-white"
+        class="w-1/3 fixed py-3 overflow-hidden px-6 right-0 top-0 h-screen overflow-auto z-10 bg-white"
       >
         <h1 class="text-lg font-semibold mt-4">
           Scenarios<span
@@ -144,12 +160,10 @@
         @update-position="handleUpdatePosition"
         @updateCanvasDimensions="updateCanvasDimensions"
         @imageSelected="handleImageSelected"
-        
       ></ScenarioComponent>
     </div>
   </div>
 </template>
-
 
 <!-- 
     
@@ -213,9 +227,20 @@ export default {
 
   methods: {
     updateCanvasDimensions() {
-      // Assuming initCanvas has been adjusted to be callable as needed,
-      // and not just on component mount.
       this.initCanvas();
+    },
+
+    showMessage(message) {
+      const consoleElement = document.getElementById("console");
+      if (consoleElement) {
+        consoleElement.innerHTML = message; // Set the message
+        consoleElement.classList.remove("hidden"); // Make the console visible
+
+        // Hide the console after 2 seconds
+        setTimeout(() => {
+          consoleElement.classList.add("hidden");
+        }, 1700);
+      }
     },
 
     handleImageSelected({ scenarioId, image }) {
@@ -278,12 +303,15 @@ export default {
           this.imagePreview = this.scenarios[0].scenarioImagePath;
         }
 
-        this.canvas.loadFromJSON(savedState.canvas, () => {
+          this.canvas.loadFromJSON(savedState.canvas, () => {
           this.canvas.renderAll();
         });
       } else {
-        console.log("No saved state found in localStorage.");
+        showMessage("Save data not found!")
       }
+
+      this.showMessage("Loading...")
+
     },
 
     handleUpdatePosition(payload) {
@@ -340,6 +368,7 @@ export default {
       const appStateString = JSON.stringify(completeAppState);
       // console.log("Saved App State:", appStateString); // Log the complete app state string
       localStorage.setItem("appState", appStateString);
+      this.showMessage("Saving...");
     },
 
     // Assuming you have a method to update scenario positions when they are moved on the canvas
@@ -379,65 +408,65 @@ export default {
       this.canvas.wrapperEl.style.zIndex = "";
       // Optionally, add other event listeners or functions here
 
-          // Set the initial zoom level
-          this.currentZoomLevel = 1; // Start with a 1:1 scale
+      // Set the initial zoom level
+      this.currentZoomLevel = 1; // Start with a 1:1 scale
 
-        // Add wheel event listener to handle zoom
-        this.canvas.wrapperEl.addEventListener('wheel', (event) => {
+      // Add wheel event listener to handle zoom
+      this.canvas.wrapperEl.addEventListener(
+        "wheel",
+        (event) => {
+          // console.log("Wheel event detected"); // Check if the event is fired
+          // console.log("Shift key state:", event.shiftKey);
 
-            // console.log("Wheel event detected"); // Check if the event is fired
-            // console.log("Shift key state:", event.shiftKey); 
+          // Check if the Shift key is pressed
+          if (!event.shiftKey) {
+            return; // Do nothing if Shift isn't held down
+          }
+          console.log("wheel working");
+          // Prevent the default scroll behavior
+          event.preventDefault();
 
-            // Check if the Shift key is pressed
-            if (!event.shiftKey) {
-                return; // Do nothing if Shift isn't held down
-            }
-            console.log("wheel working");
-            // Prevent the default scroll behavior
-            event.preventDefault();
-            
-            // Determine the direction of the wheel movement (zoom in or out)
-            const delta = event.deltaY;
-            let newZoomLevel = this.currentZoomLevel + (delta > 0 ? -0.1 : 0.1);
-            
-            // Cap the zoom level between 0.5 and 1.5
-            if(newZoomLevel < 0.75) {
-                newZoomLevel = 0.75;
-                // console.log('Reached minimum zoom level');
-            } else if(newZoomLevel > 1) {
-                newZoomLevel = 1;
-                // console.log('Reached maximum zoom level');
-            }
-            
-            // Only apply the zoom if it's within the allowed range
-            if(newZoomLevel !== this.currentZoomLevel) {
-                this.setZoomLevel(newZoomLevel);
-                this.currentZoomLevel = newZoomLevel;
-            }
-            
-        }, { passive: false });
+          // Determine the direction of the wheel movement (zoom in or out)
+          const delta = event.deltaY;
+          let newZoomLevel = this.currentZoomLevel + (delta > 0 ? -0.1 : 0.1);
 
+          // Cap the zoom level between 0.5 and 1.5
+          if (newZoomLevel < 0.75) {
+            newZoomLevel = 0.75;
+            this.showMessage('Reached minimum zoom level');
+          } else if (newZoomLevel > 1) {
+            newZoomLevel = 1;
+            this.showMessage('Reached maximum zoom level');
+          }
+
+          // Only apply the zoom if it's within the allowed range
+          if (newZoomLevel !== this.currentZoomLevel) {
+            this.setZoomLevel(newZoomLevel);
+            this.currentZoomLevel = newZoomLevel;
+          }
+        },
+        { passive: false }
+      );
     },
     setZoomLevel(zoomLevel) {
-  // Set the zoom level
-  this.canvas.setZoom(zoomLevel);
+      // Set the zoom level
+      this.canvas.setZoom(zoomLevel);
 
-  // Calculate the canvas width and height at the current zoom level
-  const zoomedWidth = this.canvas.getWidth() * zoomLevel;
-  const zoomedHeight = this.canvas.getHeight() * zoomLevel;
+      // Calculate the canvas width and height at the current zoom level
+      const zoomedWidth = this.canvas.getWidth() * zoomLevel;
+      const zoomedHeight = this.canvas.getHeight() * zoomLevel;
 
-  // Calculate the offset to center the content
-  const xOffset = (this.canvas.getWidth() - zoomedWidth) / 2;
-  const yOffset = (this.canvas.getHeight() - zoomedHeight) / 2;
+      // Calculate the offset to center the content
+      const xOffset = (this.canvas.getWidth() - zoomedWidth) / 2;
+      const yOffset = (this.canvas.getHeight() - zoomedHeight) / 2;
 
-  // Update the canvas viewport transformation to apply the offset
-  this.canvas.viewportTransform[4] = xOffset; // X offset
-  this.canvas.viewportTransform[5] = yOffset; // Y offset
+      // Update the canvas viewport transformation to apply the offset
+      this.canvas.viewportTransform[4] = xOffset; // X offset
+      this.canvas.viewportTransform[5] = yOffset; // Y offset
 
-  // Request a re-render of the canvas
-  this.canvas.requestRenderAll();
-},
-
+      // Request a re-render of the canvas
+      this.canvas.requestRenderAll();
+    },
 
     toggleDrawingMode() {
       const drawing = document.getElementById("drawing");
@@ -458,7 +487,7 @@ export default {
         this.canvas.freeDrawingBrush.color = "#eee"; // Match your canvas background
         this.canvas.freeDrawingBrush.width = 30; // Eraser size
         drawing.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eraser-fill float-left mr-1 mt-1" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eraser-fill float-left mr-1" viewBox="0 0 16 16">
                     <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293z"/>
                 </svg> Eraser Mode...`;
       }
@@ -672,7 +701,4 @@ export default {
     },
   },
 };
-
-
-
 </script>
